@@ -1,0 +1,34 @@
+# Algoritmos_e_Estrutura_de_dados_BICT_2025
+# 4. (Médio) Jogo da Batata Quente
+
+class FilaCircular:
+    def __init__(self):
+        self.itens = []
+    
+    def enfileirar(self, item):
+        self.itens.append(item)
+    
+    def desenfileirar(self):
+        return self.itens.pop(0)
+    
+    def tamanho(self):
+        return len(self.itens)
+    
+    def __getitem__(self, index):
+        return self.itens[index]
+
+def simular_batata_quente(lista_nomes, num_passes):
+    fila = FilaCircular()
+    for nome in lista_nomes:
+        fila.enfileirar(nome)
+    
+    while fila.tamanho() > 1:
+        for _ in range(num_passes):
+            fila.enfileirar(fila.desenfileirar())
+        
+        eliminado = fila.desenfileirar()
+        print(f"{eliminado} foi eliminado(a)!")
+    
+    vencedor = fila[0]
+    print(f"\nO vencedor é: {vencedor}!")
+    return vencedor
