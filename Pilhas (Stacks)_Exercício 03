@@ -1,0 +1,98 @@
+#3. (Fácil) Fila de Atendimento
+
+class No:
+    """Classe que representa um nó da fila"""
+    def __init__(self, valor):
+        self.valor = valor
+        self.proximo = None
+
+class Fila:
+    """Classe que implementa uma fila usando lista encadeada"""
+    def __init__(self):
+        self.inicio = None  # Primeiro elemento da fila
+        self.fim = None     # Último elemento da fila
+        self.tamanho = 0
+    
+    def enqueue(self, valor):
+        """Adiciona um elemento no final da fila"""
+        novo_no = No(valor)
+        if self.fim is None:  # Fila vazia
+            self.inicio = novo_no
+            self.fim = novo_no
+        else:
+            self.fim.proximo = novo_no
+            self.fim = novo_no
+        self.tamanho += 1
+    
+    def dequeue(self):
+        """Remove e retorna o elemento do início da fila"""
+        if self.inicio is None:  # Fila vazia
+            return None
+        
+        valor = self.inicio.valor
+        self.inicio = self.inicio.proximo
+        
+        if self.inicio is None:  # Se a fila ficou vazia
+            self.fim = None
+        
+        self.tamanho -= 1
+        return valor
+    
+    def esta_vazia(self):
+        """Verifica se a fila está vazia"""
+        return self.inicio is None
+    
+    def __str__(self):
+        """Retorna uma representação em string da fila"""
+        if self.esta_vazia():
+            return "Fila vazia"
+        
+        elementos = []
+        atual = self.inicio
+        while atual:
+            elementos.append(str(atual.valor))
+            atual = atual.proximo
+        return "Fila: " + " → ".join(elementos)
+
+def novo_cliente(fila, nome_cliente):
+    """Adiciona um novo cliente à fila"""
+    fila.enqueue(nome_cliente)
+    print(f"\n{nome_cliente} chegou e entrou na fila.")
+    print(fila)
+
+def atender_cliente(fila):
+    """Atende o próximo cliente da fila"""
+    if fila.esta_vazia():
+        print("\nNão há clientes para atender!")
+        return None
+    
+    cliente = fila.dequeue()
+    print(f"\nAtendendo: {cliente}")
+    print(fila)
+    return cliente
+
+def main():
+    """Função principal que simula o atendimento"""
+    print("===== SIMULAÇÃO DE FILA DE ATENDIMENTO =====")
+    fila = Fila()
+    
+    # Primeira leva de clientes
+    novo_cliente(fila, "João Silva")
+    novo_cliente(fila, "Maria Oliveira")
+    novo_cliente(fila, "Carlos Souza")
+    
+    # Atendendo um cliente
+    atender_cliente(fila)
+    
+    # Novo cliente chega
+    novo_cliente(fila, "Ana Costa")
+    
+    # Atendendo todos os restantes
+    print("\n--- Atendendo todos os clientes restantes ---")
+    while not fila.esta_vazia():
+        atender_cliente(fila)
+    
+    print("\n=== Todos os clientes foram atendidos ===")
+
+if __name__ == "__main__":
+    main()
