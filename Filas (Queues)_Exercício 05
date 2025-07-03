@@ -1,0 +1,46 @@
+# 5. (Difícil) Fila de Impressão com Prioridade
+class FilaDePrioridade:
+    def __init__(self):
+        # Lista para armazenar tuplas (dado, prioridade)
+        self.itens = []
+
+    def esta_vazia(self):
+        return len(self.itens) == 0
+
+    def enqueue(self, dado, prioridade):
+        novo_item = (dado, prioridade)
+        inserido = False
+
+        # Percorre a fila para encontrar a posição correta
+        for i in range(len(self.itens)):
+            if prioridade < self.itens[i][1]:
+                # Insere antes de qualquer item com prioridade maior
+                self.itens.insert(i, novo_item)
+                inserido = True
+                break
+
+        if not inserido:
+            # Se não encontrou, adiciona no final
+            self.itens.append(novo_item)
+
+        print(f">> Adicionado: '{dado}' (prioridade {prioridade})")
+        self.mostrar_fila()
+
+    def dequeue(self):
+        if self.esta_vazia():
+            print(">> Fila vazia! Nada para remover.")
+            return None
+
+        dado, prioridade = self.itens.pop(0)
+        print(f">> Removido: '{dado}' (prioridade {prioridade})")
+        self.mostrar_fila()
+        return dado
+
+    def mostrar_fila(self):
+        if self.esta_vazia():
+            print("Fila: Vazia")
+        else:
+            fila_str = " -> ".join(
+                f"{dado} (p{prio})" for dado, prio in self.itens
+            )
+            print("Fila:", fila_str)
