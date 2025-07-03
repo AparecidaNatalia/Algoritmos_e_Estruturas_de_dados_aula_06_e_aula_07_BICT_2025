@@ -1,4 +1,5 @@
-1. (Fácil) Invertendo uma Palavra com Pilhas (Stacks)
+1. (Fácil) Invertendo uma Palavra com Pilhas 
+
 class Pilha:
     def __init__(self):
         self.itens = []
