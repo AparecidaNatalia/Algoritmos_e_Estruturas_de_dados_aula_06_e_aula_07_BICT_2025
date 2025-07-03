@@ -1,5 +1,5 @@
 # Algoritmos_e_Estrutura_de_dados_BICT_2025
-#3. (Fácil) Fila de Atendimento
+# 3. (Fácil) Fila de Atendimento
 
 class No:
     """Classe que representa um nó da fila"""
