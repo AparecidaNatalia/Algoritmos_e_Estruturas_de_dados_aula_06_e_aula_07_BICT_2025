@@ -1,0 +1,55 @@
+#2. (Médio) Simulador de Histórico de Navegação
+
+class Pilha:
+    def __init__(self):
+        self.itens = []
+
+    def esta_vazia(self):
+        return len(self.itens) == 0
+
+    def push(self, item):
+        self.itens.append(item)
+
+    def pop(self):
+        if not self.esta_vazia():
+            return self.itens.pop()
+        return None
+
+    def topo(self):
+        if not self.esta_vazia():
+            return self.itens[-1]
+
+    def limpar(self):
+        self.itens = []
+
+class Navegador:
+    def __init__(self, pagina_inicial):
+        self.historico_voltar = Pilha()
+        self.historico_avancar = Pilha()
+        self.pagina_atual = pagina_inicial
+        print(f"Navegador iniciado em: {self.pagina_atual}")
+
+    def visitar_pagina(self, url):
+        # Adiciona a página atual no histórico de voltar
+        self.historico_voltar.push(self.pagina_atual)
+        self.pagina_atual = url
+        # Limpa o histórico de avançar
+        self.historico_avancar.limpar()
+        print(f"Visitando: {self.pagina_atual}")
+
+    def voltar(self):
+        if not self.historico_voltar.esta_vazia():
+            self.historico_avancar.push(self.pagina_atual)
+            self.pagina_atual = self.historico_voltar.pop()
+            print(f"Voltando para: {self.pagina_atual}")
+        else:
+            print("Não há páginas para voltar!")
+
+    def avancar(self):
+        if not self.historico_avancar.esta_vazia():
+            self.historico_voltar.push(self.pagina_atual)
+            self.pagina_atual = self.historico_avancar.pop()
+            print(f"Avançando para: {self.pagina_atual}")
+        else:
+            print("Não há páginas para avançar!")
+
