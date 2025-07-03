@@ -1,0 +1,1 @@
+# Algoritmos_e_Estruturas_de_dados_aula_06_e_aula_07_BICT_2025
